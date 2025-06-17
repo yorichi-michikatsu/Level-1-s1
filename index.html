@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methsana & Fear†Killer Quiz</title>
+  <style>
+    body {
+      background: #1a001a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  text-align: center;
+  color: #d580ff;
+  text-shadow: 0 0 10px #d580ff;
+}
+
+.question {
+  margin-bottom: 20px;
+  background: #2a0033;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #8000ff;
+}
+
+label {
+  display: block;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+button {
+  background-color: #8000ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 10px #8000ff;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.reward {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #3c005a, #8a2be2);
+  box-shadow: 0 0 15px #d580ff;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+  </style>
+</head><body>
+  <h1>Methsana & Fear†Killer Quiz</h1>
+  <form id="quizForm">
+    <!-- Questions inserted dynamically -->
+  </form>
+  <button onclick="submitQuiz()">Submit</button>
+  <div id="rewardBox" class="reward" style="display:none;"></div>  <script>
+    const questions = [
+      { q: "What was the name of the forest where the Hachipachi tribe lived?", options: ["Arama Forest", "Dansal Forest", "Flosa Forest", "Hive Grove"], a: 1 },
+      { q: "Which founder established Hive City?", options: ["Founder 1", "Founder 2", "Founder 3", "Founder 4"], a: 1 },
+      { q: "What city was built using timber from Arama Forest?", options: ["CubeCraft City", "Galaxity", "Hive City", "Zeqa"], a: 1 },
+      { q: "Who were the original founders of Fire Gang?", options: ["Kishor, Daku, Alex", "Flerok, Tohid, Kishor", "Bholu, Kishor, Daku", "Aditya, Rexy, Kishor"], a: 2 },
+      { q: "Which island gang is known for brutal training and defense tech?", options: ["King Gang", "Wither Gang", "Bedrock Legion", "Llama Gang"], a: 2 },
+      { q: "Who founded Cold†Fire originally?", options: ["Kishor", "Flerok", "Alex", "Tohid"], a: 1 },
+      { q: "What caused the Separation War 1?", options: ["A love triangle", "Flerok's disappearance", "Tohid challenging Flerok", "Kishor attacking Cold†Fire"], a: 2 },
+      { q: "Who remained loyal to Flerok during Separation War 1?", options: ["Rexy", "Alex", "Daku", "Khyati"], a: 1 },
+      { q: "What agreement allowed Kishor to rejoin Cold†Fire?", options: ["Peace Treaty", "Brotherhood Oath", "Enlargement Deal", "Ghost Contract"], a: 2 },
+      { q: "What incident caused a rift between Alex and Flerok?", options: ["Techno Wizard's attack", "The Rebellion Incident", "The Duel of Hive", "Khyati's Departure"], a: 1 },
+      { q: "What was the final war that led to peace in Hive?", options: ["War of Broken Brotherhood", "Rebellion War", "Revenge Revolution War", "Cold War II"], a: 2 },
+      { q: "What was the security system used in Cold†Fire's rule book?", options: ["Red Fortress", "Golden Dragon Protocol", "Purple∆Phantom", "Iron Ghost Shield"], a: 2 },
+      { q: "What city became the original base of Fire Gang?", options: ["Hive City", "CubeCraft City", "Lifeboat City", "Zeqa"], a: 2 },
+      { q: "Who created the Fear†Killer systems like Crimson§Reign and Crimson⚔Order?", options: ["Kishor", "Aditya", "Alex", "Flerok"], a: 2 },
+      { q: "Which system uses Honor Points and Legacy Points?", options: ["Fire★Bolt", "Crimson§Reign", "Crimson⚔Order", "Fear†Killer Tarot"], a: 1 },
+      { q: "Which system measures fearlessness, instinct, and kill count?", options: ["Crimson⚔Order", "Crimson§Reign", "Fire★Bolt", "Ghost Spectre"], a: 0 },
+      { q: "Who was declared wanted for associating with enemies?", options: ["Tohid", "Kishor", "Flerok", "Aditya"], a: 1 },
+      { q: "What document governs Cold†Fire's operations?", options: ["Book of Flames", "Judgement Day", "Order of Fire", "Rise Protocol"], a: 1 },
+      { q: "Which former enemy became a member of Cold†Fire?", options: ["Debaditya", "Cute King", "Aditya", "Saeed"], a: 2 },
+      { q: "Who leaked Alex's number during the Revenge Revolution War?", options: ["Flerok", "Debaditya", "Saeed", "Tohid"], a: 0 },
+      { q: "What gang did Daku form after leaving Fire Gang?", options: ["Daku Gang", "Inferno Squad", "Nation Army", "Hive Lords"], a: 0 },
+      { q: "What happened to Fire Gang after Kishor's victory over Wither Gang?", options: ["It expanded", "It disbanded", "Rexy left", "Kishor quit"], a: 2 },
+      { q: "Who convinced Paged that Alex and Kishor insulted her?", options: ["Flerok", "Debaditya", "Daku", "Aditya"], a: 1 },
+      { q: "What faction came after all gangs disbanded in Hive?", options: ["Fear†Killer", "Zeqa", "Bedrock Legion", "Dark Web SMP"], a: 2 },
+      { q: "Who led Chaddi Gang?", options: ["Flerok", "Daku", "Aditya", "Saeed"], a: 0 },
+      { q: "What did Alex do when he became leader of Cold†Fire?", options: ["Disband it", "Banished Flerok", "Attacked Hive", "Joined Fire Gang"], a: 1 },
+      { q: "Who stood by Alex after everyone left him?", options: ["Flerok", "Aditya", "Inferno", "Kishor"], a: 2 },
+      { q: "What was the purpose of the Fear†Killer website?", options: ["To archive war stories", "To spread propaganda", "To organize battles and systems", "To expose enemies"], a: 2 },
+      { q: "What event caused Cold†Fire to be dissolved?", options: ["Internal betrayal", "A duel with King", "Kishor's return to Lifeboat", "Flerok's retirement"], a: 0 },
+      { q: "What was the final fate of Alex after Fear†Killer split?", options: ["He became a villain", "He took over Hive", "He left Hive forever", "He joined Bedrock again"], a: 2 },
+    ];
+
+    const form = document.getElementById("quizForm");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<strong>Q${i + 1}: ${q.q}</strong>` +
+        q.options.map((opt, idx) => `
+          <label><input type="radio" name="q${i}" value="${idx}"> ${opt}</label>
+        `).join("");
+      form.appendChild(div);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const answer = document.querySelector(`input[name='q${i}']:checked`);
+        if (answer && parseInt(answer.value) === q.a) score++;
+      });
+
+     const rewardBox = document.getElementById("rewardBox");
+      rewardBox.style.display = "block";
+
+      let rewardTitle = "";
+      let rewardDesc = "";
+
+      if (score >= 28) {
+      rewardTitle = "👑 Legend★Vault Master";
+      rewardDesc = `Score: ${score}/30<br>Reward: 5 HP + 5 LP<br><a href="https://yorichi-michikatsu.github.io/Level-2-s1/" target="_blank" style="color: #00f; text-decoration: underline;">👉 Click here to proceed to the next level</a>`;
+      } else if (score >= 25) {
+        rewardTitle = "🔥 Reaper†Ascendant";
+        rewardDesc = "Score: " + score + "/30\nReward: 4 HP + 4 LP";
+      } else if (score >= 21) {
+        rewardTitle = "⚔ Crimson⚔Savant";
+        rewardDesc = "Score: " + score + "/30\nReward: 3 HP + MRX Rank Boost by 10%";
+      } else if (score >= 15) {
+        rewardTitle = "🌌 Phantom†Seeker";
+        rewardDesc = "Score: " + score + "/30\nReward: 2 LP+ RP boost by 15%";
+      } else if (score >= 10) {
+        rewardTitle = "🌀 Lore Explorer";
+        rewardDesc = "Score: " + score + "/30\nReward:4 INT";
+      } else {
+        rewardTitle = "🌑 Methsana Wanderer";
+        rewardDesc = "Score: " + score + "/30\nReward: Trial Token - Retry Unlocked";
+      }
+
+      rewardBox.innerHTML = `<div class="reward-title">${rewardTitle}</div><div>${rewardDesc.replace(/\n/g, "<br>")}</div>`;
+    }
+  </script></body></html>
